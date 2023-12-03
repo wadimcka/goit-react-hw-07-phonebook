@@ -23,24 +23,20 @@ const contactsSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitialState,
 
-  extraReducers: {
-    extraReducers: builder => {
-      builder
-        .addCase(
-          fetchAllContactsThunk.fulfilled,
-          handleFetchAllContactsThunkFulfield
-        )
-        .addCase(addContactThunk.fulfilled, handleAddContactThunkFulfield)
-        .addCase(deletContactThunk.fulfilled, handleDeleteContactThunkFulfield)
-        .addMatcher(action => action.type.endsWith('pending'), handlePending)
-        .addMatcher(action => action.type.endsWith('rejected'), handlRejected)
-        .addMatcher(
-          action => action.type.endsWith('fulfilled'),
-          handleFulfilled
-        );
-    },
+  extraReducers: builder => {
+    builder
+      .addCase(
+        fetchAllContactsThunk.fulfilled,
+        handleFetchAllContactsThunkFulfield
+      )
+      .addCase(addContactThunk.fulfilled, handleAddContactThunkFulfield)
+      .addCase(deletContactThunk.fulfilled, handleDeleteContactThunkFulfield)
+      .addMatcher(action => action.type.endsWith('pending'), handlePending)
+      .addMatcher(action => action.type.endsWith('rejected'), handlRejected)
+      .addMatcher(action => action.type.endsWith('fulfilled'), handleFulfilled);
   },
 });
+
 export const contactsReducer = contactsSlice.reducer;
 
 // const contactsSlice = createSlice({

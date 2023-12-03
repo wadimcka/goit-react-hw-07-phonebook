@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 
 export const Form = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
@@ -23,8 +23,8 @@ export const Form = () => {
       case 'name':
         setName(value);
         break;
-      case 'number':
-        setNumber(value);
+      case 'phone':
+        setPhone(value);
         break;
       default:
         break;
@@ -33,23 +33,23 @@ export const Form = () => {
 
   const formSubmit = event => {
     event.preventDefault();
-    console.log(event);
     if (
-      contacts.items &&
-      contacts.items.find(
-        item => item.name.toLowerCase() === name.toLowerCase()
+      contacts &&
+      contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
       )
     ) {
       toast.info(`${name} is already in contacts`);
+      formReset();
       return;
     }
-    dispatch(addContactThunk({ name, number }));
+    dispatch(addContactThunk({ name, phone }));
     formReset();
   };
 
   const formReset = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -64,14 +64,14 @@ export const Form = () => {
         value={name}
         onChange={handlerFormInputChange}
       />
-      <FormInputLabel> Number</FormInputLabel>
+      <FormInputLabel> Phone</FormInputLabel>
       <FormInput
         type="tel"
-        name="number"
+        name="phone"
         pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
-        value={number}
+        value={phone}
         onChange={handlerFormInputChange}
       />
       <FormBtn type="submit">Add contact</FormBtn>

@@ -20,8 +20,8 @@ export const getAddedContact = async contact => {
   return data;
 };
 
-export const getDeletedContact = async contactId => {
-  const response = await axios.post(`contacts/${contactId}`);
+export const getDeletedContact = async id => {
+  const response = await axios.delete(`contacts/${id}`);
   const { data } = response;
   if (response.status < 200 || response.status >= 300) {
     throw new Error('Data failed to load. Status: ' + response.status);

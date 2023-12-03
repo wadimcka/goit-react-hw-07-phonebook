@@ -1,5 +1,5 @@
 export const handlePending = state => {
-  state.contacts.isLoading = true;
+  state.isLoading = true;
 };
 export const handlRejected = (state, { payload }) => {
   state.isLoading = false;
@@ -11,16 +11,14 @@ export const handleFulfilled = state => {
 };
 
 export const handleFetchAllContactsThunkFulfield = (state, { payload }) => {
-  // console.log('Handling fetchAllContacts fulfilled:', { payload });
-  // console.log('Current state:', state);
   state.items = payload;
 };
 export const handleAddContactThunkFulfield = (state, { payload }) => {
   state.items.push(payload);
 };
 export const handleDeleteContactThunkFulfield = (state, { payload }) => {
-  const idx = (state.items = state.items.findIndex(
-    items => items.id === payload.id
-  ));
-  state.items.splice(idx, 1);
+  if (payload.id) {
+    const index = state.items.findIndex(item => item.id === payload.id);
+    state.items.splice(index, 1);
+  }
 };
